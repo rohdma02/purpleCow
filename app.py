@@ -1,7 +1,5 @@
 from flask import Flask
-
 from extensions import db
-from routes import main
 
 
 def create_app():
@@ -12,7 +10,5 @@ def create_app():
         "oregon-postgres.render.com/purplecow"
 
     db.init_app(app)
-
-    app.register_blueprint(main)
 
     return app
