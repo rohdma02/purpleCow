@@ -1,3 +1,4 @@
+from datetime import timedelta
 from extensions import db
 
 
@@ -40,7 +41,14 @@ class Reproduction(db.Model):
     cow_id = db.Column(db.Integer, db.ForeignKey('cow.id'))
     date = db.Column(db.Date)
     event_type = db.Column(db.String(20))
+
+    semen_name = db.Column(db.String(100))
+    due_date = db.Column(db.Date)
     notes = db.Column(db.Text)
+
+    def set_due_date(self):
+        if self.event_type in ('AI', 'OTB'):
+            self.due_date = self.date + timedelta(days=283)
 
 
 class Show(db.Model):
