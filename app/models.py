@@ -1,5 +1,5 @@
 from datetime import timedelta
-from extensions import db
+from app import db
 
 
 class Cow(db.Model):
@@ -65,3 +65,9 @@ class Note(db.Model):
     cow_id = db.Column(db.Integer, db.ForeignKey('cow.id'))
     date = db.Column(db.Date)
     note = db.Column(db.Text)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True)
+    password = db.Column(db.String(20))
