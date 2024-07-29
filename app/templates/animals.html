@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+<div class="container">
+    {% block content %}
+    <h4>Animals Registered:</h4>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">BirthDate</th>
+                <th scope="col">Dam ID</th>
+                <th scope="col">Sire ID</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Registration</th>
+                <th scope="col">See more</th> <!-- New th for the button -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for cow in cows %}
+            <tr>
+                <th scope="row">{{ cow.id }}</th>
+                <td>{{ cow.name }}</td>
+                <td>{{ cow.birthdate }}</td>
+                <td>{{ cow.dam_id }}</td>
+                <td>{{ cow.sire_id }}</td>
+                <td>{{ cow.sex }}</td>
+                <td>{{ cow.registration }}</td>
+                <td>
+                    <a href="{{ url_for('details', id=cow.id) }}" class="btn btn-info">Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+</div>

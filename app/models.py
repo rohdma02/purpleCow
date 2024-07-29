@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from app import db
 
 
@@ -48,7 +48,8 @@ class Reproduction(db.Model):
 
     def set_due_date(self):
         if self.event_type in ('AI', 'OTB'):
-            self.due_date = self.date + timedelta(days=283)
+            date = datetime.strptime(self.date, '%Y-%m-%d').date()
+            self.due_date = (date + timedelta(days=283)).strftime('%Y-%m-%d')
 
 
 class Show(db.Model):
@@ -65,9 +66,3 @@ class Note(db.Model):
     cow_id = db.Column(db.Integer, db.ForeignKey('cow.id'))
     date = db.Column(db.Date)
     note = db.Column(db.Text)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
-    password = db.Column(db.String(20))
