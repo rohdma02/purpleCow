@@ -1,7 +1,7 @@
 from app import app, db
 from datetime import timedelta
 from flask import render_template
-from app.models import Cow, Feeding, Medication, Note, Reproduction, Show, Weight
+from models import Cow, Feeding, Medication, Note, Reproduction, Show, Weight
 
 
 @app.route("/")
