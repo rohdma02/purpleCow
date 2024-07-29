@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-from app import db
+from . import db
 
 
 class Cow(db.Model):
