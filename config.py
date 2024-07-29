@@ -1,15 +1,38 @@
 import os
 
 
-class Config(object):
-    """Aplication config"""
+class Config:
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-    SECRET_KEY = os.environ.get('SECRET_KEY') or ''
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        'DATABASE_URL') or ''
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("DEVELOPMENT_DATABASE_URL")
 
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URL")
+
+
+class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("STAGING_DATABASE_URL")
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.getenv("PRODUCTION_DATABASE_URL")
+
+
+config = {
+    "development": DevelopmentConfig,
+    "testing": TestingConfig,
+    "staging": StagingConfig,
+    "production": ProductionConfig
+}
 
 # In change of DB configuration of tables and columns follow the procedure:
 # On windows type the following command to make database changes
